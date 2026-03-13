@@ -13,7 +13,7 @@ async function getStats(userId: string, isAdmin: boolean) {
   if (!isAdmin) allQuery.eq('user_id', userId)
   const { data: allCampaigns } = await allQuery
 
-  const totals = (allCampaigns || []).reduce((acc, c) => ({
+const totals = (allCampaigns || []).reduce((acc: { sent: number; opened: number; failed: number; recipients: number }, c) => ({
     sent: acc.sent + (c.sent_count || 0),
     opened: acc.opened + (c.opened_count || 0),
     failed: acc.failed + (c.failed_count || 0),
